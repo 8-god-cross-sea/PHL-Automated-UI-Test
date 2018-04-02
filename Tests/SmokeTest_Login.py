@@ -5,7 +5,10 @@ from selenium import webdriver
 
 class SmokeTest_Login(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome("C:\webdrivers\chromedriver.exe")
+        self.driver = webdriver.Chrome()
+
+    def tearDown(self):
+        self.driver.close()
 
     def test_login_as_Administrator(self):
         driver = self.driver
@@ -23,6 +26,7 @@ class SmokeTest_Login(unittest.TestCase):
     def test_login_as_User(self):
         driver = self.driver
         driver.get("http://phl.kaitohh.com/login.html")
+        time.sleep(5)
         UsernameEdit = driver.find_element_by_xpath("/html/body/div/div[2]/div[1]/input")
         UsernameEdit.text = "User"
         PasswordEdit = driver.find_element_by_xpath("/html/body/div/div[2]/div[2]/input")
@@ -31,6 +35,3 @@ class SmokeTest_Login(unittest.TestCase):
         SignInButton.click()
         # Assertion
         # should be logged in as User
-
-    def tearDown(self):
-        self.driver.close()
